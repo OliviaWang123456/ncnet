@@ -28,7 +28,7 @@ class PFPascalDataset(Dataset):
         self.category_names=['aeroplane','bicycle','bird','boat','bottle','bus','car','cat','chair','cow','diningtable','dog','horse','motorbike','person','pottedplant','sheep','sofa','train','tvmonitor']
         self.out_h, self.out_w = output_size
         self.pairs = pd.read_csv(csv_file)
-        self.category = self.pairs.iloc[:,2].as_matrix().astype('float')
+        self.category = self.pairs.iloc[:,2].values.astype('float') #as_matrix
         if category is not None:
             cat_idx = np.nonzero(self.category==category)[0]
             self.category=self.category[cat_idx]

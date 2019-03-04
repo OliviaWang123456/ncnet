@@ -95,8 +95,11 @@ def nearestNeighPointTnf(matches,target_points_norm):
 
 def bilinearInterpPointTnf(matches,target_points_norm):
     xA,yA,xB,yB=matches
-    
+    t = target_points_norm
+    print(t.size())
+
     feature_size=int(np.sqrt(xB.shape[-1]))
+    import ipdb; ipdb.set_trace()
     
     b,_,N=target_points_norm.size()
 

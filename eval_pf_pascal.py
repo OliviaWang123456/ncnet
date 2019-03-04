@@ -41,7 +41,7 @@ Dataset = PFPascalDataset
 collate_fn = default_collate
 csv_file = 'image_pairs/test_pairs.csv'    
     
-cnn_image_size=(args.image_size,args.image_size)
+cnn_image_size=(args.image_size, args.image_size)
 
 dataset = Dataset(csv_file=os.path.join(args.eval_dataset_path, csv_file),
                   dataset_path=args.eval_dataset_path,
@@ -53,7 +53,7 @@ dataset.pck_procedure='scnet'
 batch_size=1
 
 dataloader = DataLoader(dataset, batch_size=batch_size,
-                        shuffle=False, num_workers=0,
+                        shuffle=False, num_workers=4,
                         collate_fn=collate_fn)
 
 batch_tnf = BatchTensorToVars(use_cuda=use_cuda)

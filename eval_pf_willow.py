@@ -18,15 +18,15 @@ from lib.torch_util import collate_custom
 
 import argparse
 
-print('NCNet evaluation script - PF Pascal dataset')
+print('NCNet evaluation script - PF Willow dataset')
 
 use_cuda = torch.cuda.is_available()
 
 # Argument parsing
-parser = argparse.ArgumentParser(description='Compute PF Pascal matches')
+parser = argparse.ArgumentParser(description='Compute PF Willow matches')
 parser.add_argument('--checkpoint', type=str, default='')
 parser.add_argument('--image_size', type=int, default=400)
-parser.add_argument('--eval_dataset_path', type=str, default='datasets/pf-pascal/', help='path to PF Pascal dataset')
+parser.add_argument('--eval_dataset_path', type=str, default='datasets/', help='path to PF Willow dataset')
 
 args = parser.parse_args()
 
@@ -38,7 +38,7 @@ model = ImMatchNet(use_cuda=use_cuda,
 # Dataset and dataloader
 Dataset = PFDataset
 collate_fn = default_collate
-csv_file = 'image_pairs/test_pairs.csv'
+csv_file = 'PF-dataset/test_pairs_pf.csv'
 
 cnn_image_size = (args.image_size, args.image_size)
 
