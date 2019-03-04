@@ -86,4 +86,4 @@ good_idx = np.flatnonzero((results != -1) * ~np.isnan(results))
 print('Total: ' + str(results.size))
 print('Valid: ' + str(good_idx.size))
 filtered_results = results[good_idx]
-print('PCK:', '{:.2%}'.format(np.mean(filtered_results)))
+print('Flow files have been saved to '+args.flow_output_dir)

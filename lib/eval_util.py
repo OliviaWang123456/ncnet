@@ -31,8 +31,8 @@ def pck_metric(batch,batch_start_idx,matches,stats,args,use_cuda=True):
        
     source_im_size = batch['source_im_size']
     target_im_size = batch['target_im_size']
-
     import ipdb; ipdb.set_trace()
+
     source_points = batch['source_points']
     target_points = batch['target_points']
     
@@ -84,10 +84,15 @@ def flow_metrics(batch,batch_start_idx,matches,stats,args,use_cuda=True):
             return x.contiguous().view(1, 2, h_tgt, w_tgt).transpose(1, 2).transpose(2, 3)
 
         idx = batch_start_idx + b
+        source_im_size = batch['source_im_size']
+        warped_points_norm = bilinearInterpPointTnf(matches,grid_XY_vec)
+        
+        # warped_points = PointsToPixelCoords(warped_points_norm,source_im_size)
+        warped_points = pointsToGrid(warped_points_norm)
 
-        grid_aff = pointsToGrid(pt.affPointTnf(theta_aff[b, :].unsqueeze(0), grid_XY_vec))
-        flow_aff = th_sampling_grid_to_np_flow(source_grid=grid_XY_vec, h_src=h_src, w_src=w_src)
-        flow_aff_path = os.path.join(result_path, 'aff', batch['flow_path'][b])
+        # grid_aff = pointsToGrid(pt.affPointTnf(theta_aff[b, :].unsqueeze(0), grid_XY_vec))
+        flow_aff = th_sampling_grid_to_np_flow(source_grid=warped_points, h_src=h_src, w_src=w_src)
+        flow_aff_path = os.path.join(result_path, 'nc', batch['flow_path'][b])
         create_file_path(flow_aff_path)
         write_flo_file(flow_aff, flow_aff_path)
 
